@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import static com.noringerazancutyun.shared_preference_task2.FinalValues.PASSWORD_KEY;
-import static com.noringerazancutyun.shared_preference_task2.FinalValues.SHARED_PREF;
+import static com.noringerazancutyun.shared_preference_task2.FinalValues.PREFERENCE;
 import static com.noringerazancutyun.shared_preference_task2.FinalValues.USERNAME_KEY;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,11 +41,12 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pref = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+                pref = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString(USERNAME_KEY, usernameText.getText().toString());
                 editor.putString(PASSWORD_KEY, passwordText.getText().toString());
                 editor.apply();
+
                 Intent intent = new Intent(MainActivity.this, AccountActivity.class);
                 startActivity(intent);
             }
@@ -53,12 +54,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void isLogIn() {
-        SharedPreferences preferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
         String text = preferences.getString(USERNAME_KEY, null);
-        if (text == null) {
+        if (text != null) {
             Intent intent = new Intent(MainActivity.this, AccountActivity.class);
             startActivity(intent);
         }
     }
-
 }
